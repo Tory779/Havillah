@@ -76,13 +76,12 @@ A suggested approach: add a small API/service layer and call it from the provide
 
 ## Payments
 
-The card form in `PaymentScreen` is UI only. Use a PCI-DSS compliant gateway (for example Paystack or Flutterwave) with card tokenization for the actual charge. Raw card numbers must never reach Havilah's own backend or database. The card-brand icons (Visa / Mastercard / Verve) are generic placeholders.
+The card form in `PaymentScreen` is UI only. Use a PCI-DSS compliant gateway (for example Paystack or Flutterwave) with card tokenization for the actual charge. The card-brand icons (Visa / Mastercard / Verve) are generic placeholders.
 
-## Known gaps
+## Please note
 
-- Real image URLs exist only for Strawberry, Cotton Candy and Oreos. The other six flavours (Chocolate, Vanilla, Caramel, Coconut, Cookies & Cream, Choco Chips) show a placeholder icon.
-- Font choice (`baloo2`) is pending confirmation from the designer.
 - Android phone testing only. iOS and release builds are not done.
+- the payment screen is not linked to anything due to an update
 
 ## Working on this repo
 
