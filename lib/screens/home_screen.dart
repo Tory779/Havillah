@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // for the google font, turns out flutter doesnt have it.
-// this rubbish thing confused the hell out of me. we thank god for copilot
+
 import 'all_flavours.dart';
 import 'orderreview_screen.dart';
 import 'flavourdetail_screen.dart';
@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //const backgroundColor = Color(0xFF271378);
+    
 
      return PopScope(
     canPop: false,
