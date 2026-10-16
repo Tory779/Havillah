@@ -79,12 +79,22 @@ class SavedItemsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // Flavors Pill Badge
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFA5528F),
-                    borderRadius: BorderRadius.circular(20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AllFlavours(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFA5528F),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                   child: const Text(
                     'Flavors',

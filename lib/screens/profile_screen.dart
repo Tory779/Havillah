@@ -4,6 +4,7 @@ import 'editprofile_screen.dart';
 import 'user_profile.dart';
 import 'notifications_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'saveditem_screen.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -243,7 +244,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _onSavedItemsPressed(BuildContext context) {}
+  void _onSavedItemsPressed(BuildContext context) {
+    // Navigate to the Saved Items screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SavedItemsScreen()),
+    );
+  }
 
   void _onHelpSupportPressed(BuildContext context) {
     Navigator.push(
