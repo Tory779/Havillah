@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'favouritesprovider_screen.dart';
 import 'flavour.dart';
 import 'flavourdetail_screen.dart';
+import 'all_flavours.dart';
 
 class SavedItemsScreen extends StatelessWidget {
   const SavedItemsScreen({super.key});
@@ -97,9 +98,8 @@ class SavedItemsScreen extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'Flavors',
+                    'Flavours',
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -127,7 +127,7 @@ class SavedItemsScreen extends StatelessWidget {
                 ),
 
                 // Bottom Navigation Bar
-                _buildBottomNavigationBar(context),
+            
               ],
             ),
           ),
@@ -253,27 +253,5 @@ class SavedItemsScreen extends StatelessWidget {
     );
   }
 
-  // Navigation Bar at Bottom
-  Widget _buildBottomNavigationBar(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.home_outlined, color: Colors.white, size: 30),
-            onPressed: () => Navigator.pop(context),
-          ),
-          IconButton(
-            icon: const Icon(Icons.favorite, color: Colors.white, size: 30),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined, color: Colors.white, size: 30),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
+ 
 }
