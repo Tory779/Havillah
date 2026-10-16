@@ -20,7 +20,7 @@ class FlavourDetailScreen extends StatefulWidget {
     required this.imageAsset,
     required this.badgeColor,
   });
- 
+
   @override
   State<FlavourDetailScreen> createState() => _FlavourDetailScreenState();
 }
@@ -70,43 +70,59 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
         children: [
           Column(
             children: [
-             Container(
-  height: 320,
-  width: double.infinity,
-  decoration: BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [widget.badgeColor, Colors.white],
-    ),
-  ),
-  child: Center(
-    child: Image.asset(
-      widget.imageAsset,
-      height: 220,
-      width: 220,
-      fit: BoxFit.contain,
-      errorBuilder: (context, error, stackTrace) => const Icon(Icons.icecream, size: 80, color: Colors.white70),
-    ),
-  ),
-),
+              Container(
+                height: 320,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [widget.badgeColor, Colors.white],
+                  ),
+                ),
+                child: Center(
+                  child: Image.asset(
+                    widget.imageAsset,
+                    height: 220,
+                    width: 220,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.icecream, size: 80, color: Colors.white70),
+                  ),
+                ),
+              ),
               Expanded(
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: const BoxDecoration(
-                    color:  Color(0xFFD9D9D9),
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                    color: Color(0xFFD9D9D9),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
                   ),
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.name, style: TextStyle(color: widget.badgeColor, fontSize: 24, fontWeight: FontWeight.bold)),
+                        Text(
+                          widget.name,
+                          style: TextStyle(
+                            color: widget.badgeColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         const SizedBox(height: 8),
-                        Text(widget.description, style: const TextStyle(color: Colors.black87, fontSize: 13)),
+                        Text(widget.description,
+                            style: const TextStyle(color: Colors.black87, fontSize: 13)),
                         const SizedBox(height: 20),
-                        const Text('Choose size', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15)),
+                        const Text('Choose size',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15)),
                         const SizedBox(height: 10),
                         _buildSizeSelector(),
                         const SizedBox(height: 24),
@@ -136,7 +152,12 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
                       icon: const Icon(Icons.arrow_back, color: Colors.black),
                       onPressed: () => Navigator.pop(context),
                     ),
-                    _buildHeartButton(),
+                    Row(
+                      children: [
+                        _buildAddPlusButton(),
+                        _buildHeartButton(),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -144,6 +165,36 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  // Plus (+) Button allowing saving flavor to saved items list
+  Widget _buildAddPlusButton() {
+    final bool isFav = context.watch<FavoritesProvider>().isFavorite(widget.name);
+    return IconButton(
+      icon: Icon(
+        isFav ? Icons.check_circle : Icons.add_circle_outline,
+        color: isFav ? Colors.green : Colors.black,
+        size: 26,
+      ),
+      onPressed: () {
+        context.read<FavoritesProvider>().toggleFavorite({
+          'name': widget.name,
+          'description': widget.description,
+          'imageAsset': widget.imageAsset,
+          'badgeColor': widget.badgeColor,
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              isFav ? '${widget.name} removed from Saved Items' : '${widget.name} saved to Saved Items!',
+            ),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      },
+      tooltip: 'Save Flavor',
     );
   }
 
@@ -181,10 +232,20 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
               ),
               child: Column(
                 children: [
-                  Text(size, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(
+                    size,
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
                   Text(
                     basePrice == 0 ? 'Free' : '₦$basePrice',
-                    style: TextStyle(color: isSelected ? Colors.white : Colors.black54, fontSize: 11),
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.black54,
+                      fontSize: 11,
+                    ),
                   ),
                 ],
               ),
@@ -200,11 +261,21 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Scoop (${range[0]}-${range[1]})', style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15)),
+        Text(
+          'Scoop (${range[0]}-${range[1]})',
+          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
+        ),
         Row(
           children: [
             _buildStepperButton(icon: Icons.remove, onPressed: () => _changeScoop(-1)),
-            SizedBox(width: 32, child: Text('$scoopCount', textAlign: TextAlign.center, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+            SizedBox(
+              width: 32,
+              child: Text(
+                '$scoopCount',
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              ),
+            ),
             _buildStepperButton(icon: Icons.add, onPressed: () => _changeScoop(1)),
           ],
         ),
@@ -219,8 +290,20 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
         const Text('Quantity', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15)),
         Row(
           children: [
-            _buildStepperButton(icon: Icons.remove, onPressed: () => setState(() { if (quantity > 1) quantity--; })),
-            SizedBox(width: 32, child: Text('$quantity', textAlign: TextAlign.center, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+            _buildStepperButton(
+              icon: Icons.remove,
+              onPressed: () => setState(() {
+                if (quantity > 1) quantity--;
+              }),
+            ),
+            SizedBox(
+              width: 32,
+              child: Text(
+                '$quantity',
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              ),
+            ),
             _buildStepperButton(icon: Icons.add, onPressed: () => setState(() => quantity++)),
           ],
         ),
@@ -246,7 +329,8 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Total', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15)),
-            Text('₦${_unitPrice * quantity}', style: TextStyle(color: widget.badgeColor, fontWeight: FontWeight.bold, fontSize: 18)),
+            Text('₦${_unitPrice * quantity}',
+                style: TextStyle(color: widget.badgeColor, fontWeight: FontWeight.bold, fontSize: 18)),
           ],
         ),
         const SizedBox(height: 12),
@@ -264,13 +348,13 @@ class _FlavourDetailScreenState extends State<FlavourDetailScreen> {
                 'badgeColor': widget.badgeColor,
               });
               final profile = UserProfile(
-      username: 'Guest',
-      email: 'guest@email.com',
-      address: 'Default Address',
-    );
+                username: 'Guest',
+                email: 'guest@email.com',
+                address: 'Default Address',
+              );
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  OrderReviewScreen(userProfile: profile)),
+                MaterialPageRoute(builder: (context) => OrderReviewScreen(userProfile: profile)),
               );
             },
             style: ElevatedButton.styleFrom(
