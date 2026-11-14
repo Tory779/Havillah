@@ -86,5 +86,5 @@ The card form in `PaymentScreen` is UI only. Use a PCI-DSS compliant gateway (fo
 ## Working on this repo
 
 - Branch off `main` for any new work and open a pull request instead of pushing straight to `main`.
-- UI changes should go through the frontend developer (Oluoma), since the screens follow the designer's Figma.
+- UI changes should go through the frontend developer (Me) and i will contact the designer, since the screens follow the designer's Figma.
 - A proposed API contract is in [`API_SPEC.md`](API_SPEC.md).
